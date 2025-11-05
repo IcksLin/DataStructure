@@ -16,6 +16,19 @@ void delete_node(MyNode** root, int data);
 void print_list(MyNode* root);
 //==========================================
 
+//栈实现=====================================
+#define STACK_SIZE 100
+typedef struct MyStack MyStack;
+struct MyStack {
+    int top;
+    int my_stack[STACK_SIZE];
+};
+void stack_init(MyStack** stack);
+bool stack_push(MyStack* stack, int data);
+bool stack_pop(MyStack* stack , int *pData);
+bool stack_empty(MyStack* stack);
+//==========================================
+
 //BST（查找二叉树）============================
 //前向声明，二叉树（查找二叉树实现）
 typedef struct BST_node BST_node;
@@ -28,8 +41,9 @@ struct BST_node {
 
 void BST_insert(BST_node** root,int data);
 BST_node* BST_find(BST_node* root,int data);
-void BST_delete_tree(BST_node** root, int data);
+bool BST_delete_tree(BST_node** root, int data);
 void BST_print_list(BST_node* root);
+
 //===========================================
 
 int main() {
@@ -50,6 +64,9 @@ int main() {
     for (int i = 0; i<100;i++) {
         BST_insert(&BST_root, i);
     }
+    BST_print_list(BST_root);
+    printf("\n%d\n",BST_delete_tree(&BST_root,30));
+
     BST_print_list(BST_root);
     BST_node *find_test = BST_find(BST_root, 70);
     if (find_test != NULL) {
@@ -121,6 +138,7 @@ void delete_node(MyNode** root, int data) {
     printf("Node deleted successfully\n");
 }
 
+//链表打印
 void print_list(MyNode* root) {
     if (root == NULL) {
         printf("Empty List\n");
@@ -132,6 +150,46 @@ void print_list(MyNode* root) {
         printf("%d ", root->data);
 
     }
+}
+
+//栈初始化
+void stack_init(MyStack** stack) {
+    if (stack == NULL|| *stack == NULL) {
+        printf("Struct is invalid\n");
+        return;
+    }
+    for (int i = 0;i<STACK_SIZE;i++) {
+        (*stack)->my_stack[i] = 0;
+
+    }
+    (*stack)->top = -1;
+}
+
+//入栈
+bool stack_push(MyStack* stack, int data) {
+    if (stack == NULL ) {
+        printf("Stack is invalid\n");
+        return false;
+    }
+    if (stack->top == STACK_SIZE - 1) {
+        printf("Stack Full\n");
+        return false;
+    }
+    stack->my_stack[++stack->top] = data;
+    return true;
+}
+
+//出栈
+bool stack_pop(MyStack* stack, int *pData) {
+    if (stack==NULL) {
+        printf("Stack is invalid\n");
+        return false;
+    }
+    if (stack->top == -1) {
+        printf("Stack Empty\n");
+        return false;
+    }
+    return stack->my_stack[stack->top--];
 }
 
 //BST树的递归插入
@@ -196,4 +254,71 @@ BST_node* BST_find(BST_node* root,int data) {
     }
     printf("Node not found\n");
     return NULL;
+}
+
+//删除操作
+bool BST_delete_tree(BST_node** root, int data) {
+    if (root == NULL || *root == NULL) {
+        printf("BST is invalid\n");
+        return false;
+    }
+
+    BST_node* cur = *root;
+    BST_node* prev = NULL;
+
+    // 查找要删除的节点
+    while (cur != NULL && cur->data != data) {
+        prev = cur;
+        if (cur->data > data) {
+            cur = cur->left;
+        } else {
+            cur = cur->right;
+        }
+    }
+
+    // 没找到
+    if (cur == NULL) {
+        return false;
+    }
+
+    // 情况1：要删除的节点有两个子节点
+    if (cur->left != NULL && cur->right != NULL) {
+        // 找到右子树的最小节点
+        BST_node* min_parent = cur;
+        BST_node* min_node = cur->right;
+
+        while (min_node->left != NULL) {
+            min_parent = min_node;
+            min_node = min_node->left;
+        }
+
+        // 用min_node的值替换cur的值
+        cur->data = min_node->data;
+
+        // 现在删除min_node（它最多有一个右子节点）
+        if (min_parent->left == min_node) {
+            min_parent->left = min_node->right;
+        } else {
+            min_parent->right = min_node->right;
+        }
+
+        free(min_node);
+    }
+    // 情况2：要删除的节点有0或1个子节点
+    else {
+        BST_node* child = (cur->left != NULL) ? cur->left : cur->right;
+
+        if (prev == NULL) {
+            // 删除的是根节点
+            *root = child;
+        } else if (prev->left == cur) {
+            prev->left = child;
+        } else {
+            prev->right = child;
+        }
+
+        free(cur);
+    }
+
+    return true;
 }
