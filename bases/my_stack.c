@@ -1,13 +1,13 @@
 #include "my_stack.h"
 
 
-void stcak_init(Stack *s)
+void stack_init(Stack *s)
 {
     s->top = NULL;
     s->size = 0;
 }
 
-int Stack_push(Stack *s,int val)
+int stack_push(Stack *s,int val)
 {
     StackNode *n = malloc(sizeof(StackNode));
 

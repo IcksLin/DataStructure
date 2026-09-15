@@ -47,17 +47,17 @@ Node *list_insert_tail(Node *head,int val){
     
 }
 
-Node *list_insert_pos(Node *head,int postion,int val)
+Node *list_insert_pos(Node *head,int position,int val)
 {
-    if(postion<0)return head;
-    if(postion == 0) return list_insert_head(head,val);
+    if(position<0)return head;
+    if(position == 0) return list_insert_head(head,val);
 
     Node *n = list_create_node(val);
     if(!n) return head;
 
     //到位置
     Node *pre = head;
-    for(int i = 0; i < postion - 1; i++)
+    for(int i = 0; i < position - 1; i++)
     {
         pre = pre->next;
     }
@@ -88,10 +88,10 @@ Node *list_delete_value(Node *head,int val)
     return head;
 }
 
-Node *list_delete_postion(Node *head,int postion)
+Node *list_delete_position(Node *head,int position)
 {
-    if(!head||postion<0) return head;
-    if(postion == 0)
+    if(!head||position<0) return head;
+    if(position == 0)
     {
         Node *n = head;
         head = head->next;
@@ -100,7 +100,7 @@ Node *list_delete_postion(Node *head,int postion)
     }
 
     Node *pre = head;
-    for(int i = 0;i < postion -1;i++)
+    for(int i = 0;i < position -1;i++)
     {
         pre = pre->next;
     }
@@ -113,17 +113,17 @@ Node *list_delete_postion(Node *head,int postion)
 
 Node *list_find(Node *head,int val)
 {
-    for(Node*p;p;p = p->next){
+    for(Node*p = head;p;p = p->next){
         if(p->data == val) return p;
     }
     return NULL;
 }
 
-int list_get(Node *head,int postion,int *out)
+int list_get(Node *head,int position,int *out)
 {
-    if(postion<0) return 0;
+    if(position<0) return 0;
     Node *p = head;
-    for(int i = 0;i<postion&&p;i++)
+    for(int i = 0;i<position&&p;i++)
     {
         p = p->next;
     }
@@ -152,7 +152,7 @@ Node *list_reverse(Node *head)
     return pre;
 }
 
-void *list_print(Node *head)
+void list_print(Node *head)
 {
     for(Node *p = head;p;p = p->next)
     {

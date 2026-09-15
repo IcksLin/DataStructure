@@ -1,4 +1,4 @@
-#include "my_quene.h"
+#include "my_queue.h"
 
 void queue_init(Queue *q)
 {
@@ -15,7 +15,7 @@ int queue_enqueue(Queue *q, int value)
         printf("enqueue false\r\n");
         return 0;
     }
-    n->date = value;
+    n->data = value;
     n->next = NULL;
     if(q->front == NULL){
         q->front = q->rear = n;
@@ -36,7 +36,7 @@ int queue_dequeue(Queue *q, int *out)
         return 0;
     }
     QNode *n = q->front;
-    if(out) *out = n->date;
+    if(out) *out = n->data;
     q->front = n->next;
     if(q->front == NULL) q->rear = NULL;
     q->size--;
@@ -51,7 +51,7 @@ int queue_front(Queue *q, int *out)
         printf("queue is empty\r\n");
         return 0;
     }
-    *out = q->front->date;
+    *out = q->front->data;
     return 1;
 }
 

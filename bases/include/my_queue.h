@@ -1,12 +1,12 @@
-#ifndef QUEUE_H
-#define QUEUE_H
+#ifndef MY_QUEUE_H
+#define MY_QUEUE_H
 
 #include<stdio.h>
 #include<stdlib.h>
 
 typedef struct QNode
 {
-    int date;
+    int data;
     struct QNode *next;
 
 } QNode;

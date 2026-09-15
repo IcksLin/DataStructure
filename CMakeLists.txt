@@ -35,11 +35,11 @@ target_include_directories(ds
         PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/bases/include")
 
 # ============================================================
-# 遗留演示入口 main.c
-# 暂不链接 ds：其内部重复定义了 queue_init/stack_empty 等符号
+# 演示入口 main.c
 # ============================================================
-add_executable(legacy_demo main.c)
-set_target_properties(legacy_demo PROPERTIES OUTPUT_NAME "main")
+add_executable(demo main.c)
+target_link_libraries(demo PRIVATE ds::ds)
+set_target_properties(demo PROPERTIES OUTPUT_NAME "main")
 
 # ============================================================
 # 每章应用：apps/chXX/<名称>.c

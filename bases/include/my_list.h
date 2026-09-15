@@ -15,16 +15,16 @@ void list_free(Node *head);
 
 Node *list_insert_head(Node *head,int val);
 Node *list_insert_tail(Node *head,int val);
-Node *list_insert_pos(Node *head,int postion,int val);
+Node *list_insert_pos(Node *head,int position,int val);
 
 Node *list_delete_value(Node *head,int val);
-Node *list_delete_postion(Node *head,int postion);
+Node *list_delete_position(Node *head,int position);
 
 Node *list_find(Node *head,int val);
-int list_get(Node *head,int postion,int *out);
+int list_get(Node *head,int position,int *out);
 
 int list_length(Node *head);
 Node *list_reverse(Node *head);
-void *list_print(Node *head);
+void list_print(Node *head);
 
 #endif

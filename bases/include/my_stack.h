@@ -15,8 +15,8 @@ typedef struct {
     
 }Stack;
 
-void stcak_init(Stack *s);
-int Stack_push(Stack *s,int val);
+void stack_init(Stack *s);
+int stack_push(Stack *s,int val);
 int stack_pop(Stack *s,int *out);
 int stack_top(Stack *s,int *out);
 int stack_empty(Stack *s);

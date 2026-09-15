@@ -56,7 +56,7 @@ DNode *dlist_insert_pos(DNode *head, int pos, int value)
 
     if(!prev) return head;
     DNode *n = dlist_create_node(value);
-    if(!n) return ;
+    if(!n) return head;
     n->next = prev->next;
     n->prev = prev;
 
@@ -117,7 +117,7 @@ DNode *dlist_find(DNode *head, int value)
 int    dlist_length(DNode *head)
 {
     int n = 0;
-    for(DNode *p = head; p; p++) n++;
+    for(DNode *p = head; p; p = p->next) n++;
     return n;
 
 }
