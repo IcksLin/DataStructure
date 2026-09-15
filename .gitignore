@@ -1,0 +1,12 @@
+# 文档/书籍 PDF
+doc/*.pdf
+
+# 构建产物
+build/
+cmake-build-*/
+*.o
+*.obj
+
+# 可执行文件
+main
+DataStructure
