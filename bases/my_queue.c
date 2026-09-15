@@ -71,5 +71,5 @@ int queue_free(Queue *q)
     }
     q->rear = NULL;
     q->size = 0;
-    
+    return 1;
 }

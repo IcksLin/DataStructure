@@ -34,7 +34,6 @@ Node *list_insert_tail(Node *head,int val){
     if(!n) return 0;
     if(!head)
     {
-        free(n);
         return n;
     } 
     Node *p = head;

@@ -63,5 +63,5 @@ int stack_free(Stack *s)
         free(n);
     }
     s->size = 0;
-    
+    return 1;
 }
